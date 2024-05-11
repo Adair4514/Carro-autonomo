@@ -1,5 +1,29 @@
-# Object file
-*.o
+// Definir los pines para los motores y el sensor de luz
+int motorIzquierdoPin = A2;
+int motorDerechoPin = A1;
+int sensorLuzPin = A0;
 
-# Ada Library Information
-*.ali
+// Definir el umbral de luz para determinar la dirección
+int umbralLuz = 500;
+
+void setup() {
+  // Configurar los pines de los motores como salida
+  pinMode(motorIzquierdoPin, OUTPUT);
+  pinMode(motorDerechoPin, OUTPUT);
+}
+
+void loop() {
+  // Leer el valor del sensor de luz
+  int valorLuz = analogRead(sensorLuzPin);
+
+  // Comparar el valor con el umbral para determinar la dirección
+  if (valorLuz < umbralLuz) {
+    // Si hay poca luz (oscuro), girar hacia la izquierda
+    digitalWrite(motorIzquierdoPin, HIGH);
+    digitalWrite(motorDerechoPin, LOW);
+  } else {
+    // Si hay suficiente luz (brillante), girar hacia la derecha
+    digitalWrite(motorIzquierdoPin, LOW);
+    digitalWrite(motorDerechoPin, HIGH);
+  }
+}
